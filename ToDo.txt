@@ -1,0 +1,9 @@
+to do in code:
+1. use writeline in x and y; only do write and writeline in xy
+2. address spooling of arduino serial data. Enforce controlled file write
+3. write only specific section of arduino output x for x, y for y and so on
+4. write functions to clean up x and make code reusable
+5. replicate x to y and xy
+6. replicate xto roll, pitch, yaw, rp, rw, py,rpy
+7. Try include boundary conditions for test so random data do not go outside stage range (700x700mm) using AdVal
+8. Write handler for when arduino is not connected
