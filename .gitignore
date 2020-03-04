@@ -1,3 +1,5 @@
 *txt.*
-csharp/
+csharp/bin/
+csharp/properties/
+csharp/obj/
 manual notes.*
