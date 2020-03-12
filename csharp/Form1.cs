@@ -309,6 +309,148 @@ namespace csharp
 
         }
 
+        private void pitch_Click(object sender, EventArgs e)
+        {
+            //Initializations -variables and status
+            statStripText.Text = "X-axis movement initiated";
+            SByte x_dir = 1;
+            float x_hold;
+            float[] x_loc = new float[test_cycle + 1];
+            x_loc[0] = 0;
+            mySerialPort.Open();
+            //Declaration of randomized movement loop
+            for (int jj = 1; jj <= 100; jj++)
+            {
+                xtext.Text = Convert.ToString(jj);
+                int test_travel = rnd.Next(1, 6) * rnd.Next(2, 7);
+                mMCcard.MoCtrCard_SendPara(0, 0, test_travel);
+                mMCcard.MoCtrCard_MCrlAxisMove(0, x_dir);
+                runSte[0] = 1;
+                while (runSte[0] != 0) { mMCcard.MoCtrCard_GetRunState(runSte); }
+                posVal = mMCcard.MoCtrCard_GetAxisPos(0, resPos);
+                x_loc[jj] = resPos[0];
+                if (x_loc[jj] != x_loc[jj - 1])
+                {
+                    for (int i = 0; i < 100; i++)
+                    {
+                        indataNew = mySerialPort.ReadLine();
+                    }
+                    if (indataNew != indataOld)
+                    {
+                        indataOld = indataNew;
+                        x_hold = ParseInputData(indataNew, ",", 1);
+                        if (x_hold != 999999)
+                        {
+                            using (System.IO.StreamWriter file =
+                            new System.IO.StreamWriter(@"C:\Users\olaol\Documents\Ola-git-projects\Linear_stage_control\xtxt.txt", true))
+                            {
+                                file.WriteLine("{0}, {1}", x_hold, x_loc[jj]);
+                            }
+                        }
+                    }
+                    // mySerialPort.Close();                    
+                }
+                //Flip direction
+                x_dir = Convert.ToSByte(-1 * Convert.ToInt32(x_dir));
+            }
+            //Write output to file         
+        }
+
+        private void yaw_Click(object sender, EventArgs e)
+        {
+            //Initializations -variables and status
+            statStripText.Text = "Y-axis movement initiated";
+            SByte y_dir = 1;
+            float y_hold;
+            float[] y_loc = new float[test_cycle + 1];
+            y_loc[0] = 0;
+            //Declaration of randomized movement loop
+            for (int j = 1; j <= 100; j++)
+            {
+                xtext.Text = Convert.ToString(j);
+                int test_travel = rnd.Next(1, 6) * rnd.Next(2, 7);
+                mMCcard.MoCtrCard_SendPara(1, 0, test_travel);
+                mMCcard.MoCtrCard_MCrlAxisMove(1, y_dir);
+                runSte[0] = 1;
+                while (runSte[0] != 0) { mMCcard.MoCtrCard_GetRunState(runSte); Console.WriteLine("Still Here"); }
+                posVal = mMCcard.MoCtrCard_GetAxisPos(1, resPos);
+                y_loc[j] = resPos[0];
+                if (y_loc[j] != y_loc[j - 1])
+                {
+                    ytext.Text = Convert.ToString(y_loc[j]);
+                    mySerialPort.Open();
+                    for (int i = 0; i < 100; i++)
+                    {
+                        indataNew = mySerialPort.ReadLine();
+                    }
+                    if (indataNew != indataOld)
+                    {
+                        indataOld = indataNew;
+                        y_hold = ParseInputData(indataNew, ",", 2);
+                        if (y_hold != 999999)
+                        {
+                            using (System.IO.StreamWriter file =
+                            new System.IO.StreamWriter(@"C:\Users\olaol\Documents\Ola-git-projects\Linear_stage_control\ytxt.txt", true))
+                            {
+                                file.WriteLine("{0}, {1}", y_hold, y_loc[j]);
+                            }
+                        }
+                    }
+                    mySerialPort.Close();
+                }
+                //Flip direction
+                y_dir = Convert.ToSByte(-1 * Convert.ToInt32(y_dir));
+            }
+            //Write output to file  
+        }
+
+        private void roll_Click(object sender, EventArgs e)
+        {
+            //Initializations -variables and status
+            statStripText.Text = "X-axis movement initiated";
+            SByte x_dir = 1;
+            float x_hold;
+            float[] x_loc = new float[test_cycle + 1];
+            x_loc[0] = 0;
+            mySerialPort.Open();
+            //Declaration of randomized movement loop
+            for (int jj = 1; jj <= 100; jj++)
+            {
+                xtext.Text = Convert.ToString(jj);
+                int test_travel = rnd.Next(1, 6) * rnd.Next(2, 7);
+                mMCcard.MoCtrCard_SendPara(0, 0, test_travel);
+                mMCcard.MoCtrCard_MCrlAxisMove(0, x_dir);
+                runSte[0] = 1;
+                while (runSte[0] != 0) { mMCcard.MoCtrCard_GetRunState(runSte); }
+                posVal = mMCcard.MoCtrCard_GetAxisPos(0, resPos);
+                x_loc[jj] = resPos[0];
+                if (x_loc[jj] != x_loc[jj - 1])
+                {
+                    for (int i = 0; i < 100; i++)
+                    {
+                        indataNew = mySerialPort.ReadLine();
+                    }
+                    if (indataNew != indataOld)
+                    {
+                        indataOld = indataNew;
+                        x_hold = ParseInputData(indataNew, ",", 1);
+                        if (x_hold != 999999)
+                        {
+                            using (System.IO.StreamWriter file =
+                            new System.IO.StreamWriter(@"C:\Users\olaol\Documents\Ola-git-projects\Linear_stage_control\xtxt.txt", true))
+                            {
+                                file.WriteLine("{0}, {1}", x_hold, x_loc[jj]);
+                            }
+                        }
+                    }
+                    // mySerialPort.Close();                    
+                }
+                //Flip direction
+                x_dir = Convert.ToSByte(-1 * Convert.ToInt32(x_dir));
+            }
+            //Write output to file   
+        }
+
         private void rpy_Click(object sender, EventArgs e)
         {
             //mMCcard.MoCtrCard_SeekZero(0); 

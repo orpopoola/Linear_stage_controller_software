@@ -158,6 +158,7 @@
             this.roll.Tag = "roll";
             this.roll.Text = "Roll";
             this.roll.UseVisualStyleBackColor = true;
+            this.roll.Click += new System.EventHandler(this.roll_Click);
             // 
             // rollpitch
             // 
@@ -178,6 +179,7 @@
             this.pitch.Tag = "pitch";
             this.pitch.Text = "Pitch";
             this.pitch.UseVisualStyleBackColor = true;
+            this.pitch.Click += new System.EventHandler(this.pitch_Click);
             // 
             // rollyaw
             // 
@@ -198,6 +200,7 @@
             this.yaw.Tag = "yaw";
             this.yaw.Text = "Yaw";
             this.yaw.UseVisualStyleBackColor = true;
+            this.yaw.Click += new System.EventHandler(this.yaw_Click);
             // 
             // pitchyaw
             // 
