@@ -347,6 +347,7 @@
             this.yawtext.TabIndex = 27;
             this.yawtext.Tag = "yaw_text";
             this.yawtext.Text = "0";
+            this.yawtext.TextChanged += new System.EventHandler(this.yawtext_TextChanged);
             // 
             // ptext
             // 
@@ -356,6 +357,7 @@
             this.ptext.TabIndex = 28;
             this.ptext.Tag = "p_text";
             this.ptext.Text = "0";
+            this.ptext.TextChanged += new System.EventHandler(this.ptext_TextChanged);
             // 
             // Form1
             // 
