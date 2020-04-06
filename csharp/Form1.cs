@@ -263,7 +263,7 @@ namespace csharp
             mMCcard.MoCtrCard_SendPara(1, 0, Convert.ToInt32(yawtext.Text));
             mMCcard.MoCtrCard_MCrlAxisMove(1, 1); //-1 is up
             mMCcard.MoCtrCard_SendPara(2, 0, Convert.ToInt32(rtext.Text));
-            mMCcard.MoCtrCard_MCrlAxisMove(2, 1); //-1 is up
+            mMCcard.MoCtrCard_MCrlAxisMove(2, - 1); //-1 is up
         }
 
         private void yzaxis_Click(object sender, EventArgs e)
@@ -285,12 +285,15 @@ namespace csharp
 
         private void stop_Click(object sender, EventArgs e)
         {
+            //Close button
+            //Closes the form
             this.Close(); ;
         }
         
         private void reset_Click(object sender, EventArgs e)
         {
             //Assuming position at zero, this function takes the position to 350,350
+            //350,350 is approximately the middle position
             posVal = mMCcard.MoCtrCard_ResetCoordinate(255, 0);
             mMCcard.MoCtrCard_SendPara(0, 0, 350);
             mMCcard.MoCtrCard_SendPara(1, 0, 350);
@@ -310,9 +313,9 @@ namespace csharp
         }
 
         private void pitch_Click(object sender, EventArgs e)
-        {
+        {   //Rotation around x-axis --(
             //Initializations -variables and status
-            statStripText.Text = "X-axis movement initiated";
+            statStripText.Text = "X-axis rotation initiated";
             SByte x_dir = 1;
             float x_hold;
             float[] x_loc = new float[test_cycle + 1];
@@ -338,11 +341,11 @@ namespace csharp
                     if (indataNew != indataOld)
                     {
                         indataOld = indataNew;
-                        x_hold = ParseInputData(indataNew, ",", 1);
+                        x_hold = ParseInputData(indataNew, ",", 4);
                         if (x_hold != 999999)
                         {
                             using (System.IO.StreamWriter file =
-                            new System.IO.StreamWriter(@"C:\Users\olaol\Documents\Ola-git-projects\Linear_stage_control\xtxt.txt", true))
+                            new System.IO.StreamWriter(@"C:\Users\olaol\Documents\Ola-git-projects\Linear_stage_control\rxtxt.txt", true))
                             {
                                 file.WriteLine("{0}, {1}", x_hold, x_loc[jj]);
                             }
@@ -357,9 +360,9 @@ namespace csharp
         }
 
         private void yaw_Click(object sender, EventArgs e)
-        {
+        {   //Rotation about y-axis |U
             //Initializations -variables and status
-            statStripText.Text = "Y-axis movement initiated";
+            statStripText.Text = "Y-axis rotation initiated";
             SByte y_dir = 1;
             float y_hold;
             float[] y_loc = new float[test_cycle + 1];
@@ -386,11 +389,11 @@ namespace csharp
                     if (indataNew != indataOld)
                     {
                         indataOld = indataNew;
-                        y_hold = ParseInputData(indataNew, ",", 2);
+                        y_hold = ParseInputData(indataNew, ",", 6);
                         if (y_hold != 999999)
                         {
                             using (System.IO.StreamWriter file =
-                            new System.IO.StreamWriter(@"C:\Users\olaol\Documents\Ola-git-projects\Linear_stage_control\ytxt.txt", true))
+                            new System.IO.StreamWriter(@"C:\Users\olaol\Documents\Ola-git-projects\Linear_stage_control\rytxt.txt", true))
                             {
                                 file.WriteLine("{0}, {1}", y_hold, y_loc[j]);
                             }
@@ -405,10 +408,10 @@ namespace csharp
         }
 
         private void roll_Click(object sender, EventArgs e)
-        {
+        {   //Rotation about z-axis (.)
             //Initializations -variables and status
-            statStripText.Text = "X-axis movement initiated";
-            SByte x_dir = 1;
+            statStripText.Text = "Z-axis rotation initiated";
+            SByte x_dir = -1;
             float x_hold;
             float[] x_loc = new float[test_cycle + 1];
             x_loc[0] = 0;
@@ -418,8 +421,8 @@ namespace csharp
             {
                 xtext.Text = Convert.ToString(jj);
                 int test_travel = rnd.Next(1, 6) * rnd.Next(2, 7);
-                mMCcard.MoCtrCard_SendPara(0, 0, test_travel);
-                mMCcard.MoCtrCard_MCrlAxisMove(0, x_dir);
+                mMCcard.MoCtrCard_SendPara(2, 0, test_travel);
+                mMCcard.MoCtrCard_MCrlAxisMove(2, x_dir);
                 runSte[0] = 1;
                 while (runSte[0] != 0) { mMCcard.MoCtrCard_GetRunState(runSte); }
                 posVal = mMCcard.MoCtrCard_GetAxisPos(0, resPos);
@@ -433,11 +436,11 @@ namespace csharp
                     if (indataNew != indataOld)
                     {
                         indataOld = indataNew;
-                        x_hold = ParseInputData(indataNew, ",", 1);
+                        x_hold = ParseInputData(indataNew, ",", 4);
                         if (x_hold != 999999)
                         {
                             using (System.IO.StreamWriter file =
-                            new System.IO.StreamWriter(@"C:\Users\olaol\Documents\Ola-git-projects\Linear_stage_control\xtxt.txt", true))
+                            new System.IO.StreamWriter(@"C:\Users\olaol\Documents\Ola-git-projects\Linear_stage_control\rztxt.txt", true))
                             {
                                 file.WriteLine("{0}, {1}", x_hold, x_loc[jj]);
                             }

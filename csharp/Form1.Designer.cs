@@ -247,7 +247,7 @@
             this.stop.Size = new System.Drawing.Size(75, 23);
             this.stop.TabIndex = 16;
             this.stop.Tag = "stop";
-            this.stop.Text = "Stop";
+            this.stop.Text = "Close";
             this.stop.UseVisualStyleBackColor = true;
             this.stop.Click += new System.EventHandler(this.stop_Click);
             // 
